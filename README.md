@@ -40,4 +40,4 @@ Actividad evaluativa: **Web Components, HTML Templates y frameworks** — Noviem
 
 ## Declaración de uso de IA
 
-Usé IA (el asistente Qoder) como apoyo para construir y depurar el código del componente y como borrador de las respuestas de investigación. El código se probó en el navegador (renderizado, formulario, eliminación y consola sin errores) y las respuestas se revisaron y se ajustaron con mis palabras antes de entregar.
+Usé un asistente de IA como apoyo para construir y depurar el código del componente y como borrador de las respuestas de investigación. El código se probó en el navegador (renderizado, formulario, eliminación y consola sin errores) y las respuestas se revisaron y se ajustaron con mis palabras antes de entregar.
