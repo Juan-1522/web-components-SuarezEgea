@@ -94,3 +94,49 @@ class FichaMascota extends HTMLElement {
 
 // R2 — registro del elemento personalizado (nombre con guion obligatorio).
 customElements.define('ficha-mascota', FichaMascota);
+
+// ----- Lógica de la página: contador y formulario -----
+
+const contenedor = document.getElementById('fichas');
+const formulario = document.getElementById('form-registro');
+const contador = document.getElementById('contador');
+const aviso = document.getElementById('aviso');
+let temporizadorAviso = null;
+
+function actualizarContador() {
+  const total = contenedor.querySelectorAll('ficha-mascota').length;
+  contador.textContent = total === 1 ? '1 paciente' : `${total} pacientes`;
+}
+
+function mostrarAviso(mensaje) {
+  aviso.textContent = mensaje;
+  aviso.classList.add('visible');
+  clearTimeout(temporizadorAviso);
+  temporizadorAviso = setTimeout(() => aviso.classList.remove('visible'), 4000);
+}
+
+// R5 — Reutilización: el formulario crea nuevas instancias del mismo componente.
+formulario.addEventListener('submit', (evento) => {
+  evento.preventDefault();
+  const datos = new FormData(formulario);
+  const nombre = datos.get('nombre').trim();
+
+  const ficha = document.createElement('ficha-mascota');
+  ficha.setAttribute('nombre', nombre);
+  ficha.setAttribute('especie', datos.get('especie'));
+  ficha.setAttribute('edad', datos.get('edad'));
+  ficha.setAttribute('vacuna', datos.get('vacuna'));
+
+  const nota = datos.get('nota').trim();
+  if (nota) {
+    ficha.textContent = nota; // R4 — este texto se proyecta en el <slot>.
+  }
+
+  contenedor.appendChild(ficha);
+  formulario.reset();
+  actualizarContador();
+  mostrarAviso(`Listo, quedó la ficha de ${nombre}.`);
+  ficha.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+
+actualizarContador();

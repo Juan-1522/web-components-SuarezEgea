@@ -262,6 +262,39 @@
       </div>
     </section>
 
+    <section class="panel" aria-labelledby="titulo-registro">
+      <h2 id="titulo-registro">Registrar nueva mascota</h2>
+      <p>Con esto se agrega otra ficha a la lista de arriba. La nota es opcional: si la dejas vacía, la tarjeta no muestra ese recuadro.</p>
+      <form id="form-registro">
+        <div class="campo">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" name="nombre" type="text" required maxlength="40" placeholder="Ej: Rocky">
+        </div>
+        <div class="campo">
+          <label for="especie">Especie</label>
+          <select id="especie" name="especie" required>
+            <option value="perro">Perro</option>
+            <option value="gato">Gato</option>
+            <option value="conejo">Conejo</option>
+            <option value="ave">Ave</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="edad">Edad (años)</label>
+          <input id="edad" name="edad" type="number" min="0" max="40" required placeholder="Ej: 2">
+        </div>
+        <div class="campo">
+          <label for="vacuna">Próxima vacuna</label>
+          <input id="vacuna" name="vacuna" type="date" required>
+        </div>
+        <div class="campo campo-amplio">
+          <label for="nota">Nota (opcional)</label>
+          <textarea id="nota" name="nota" maxlength="200" placeholder="Ej: se estresa con los perros, atenderlo primero"></textarea>
+        </div>
+        <button type="submit">Agregar ficha</button>
+        <p id="aviso" role="status" aria-live="polite"></p>
+      </form>
+    </section>
   </main>
 
   <footer>
