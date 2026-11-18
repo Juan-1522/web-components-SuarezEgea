@@ -22,6 +22,11 @@ class FichaMascota extends HTMLElement {
   connectedCallback() {
     this.pintar();
 
+    // El botón "Eliminar" avisa hacia afuera con un evento que cruza el Shadow DOM.
+    this.shadowRoot.querySelector('.eliminar').addEventListener('click', () => {
+      this.dispatchEvent(new CustomEvent('eliminar-ficha', { bubbles: true, composed: true }));
+    });
+
     // R4 — Slot: si no llega nota libre, el recuadro de la nota se oculta.
     const slot = this.shadowRoot.querySelector('slot');
     const nota = this.shadowRoot.querySelector('.nota');
@@ -95,7 +100,7 @@ class FichaMascota extends HTMLElement {
 // R2 — registro del elemento personalizado (nombre con guion obligatorio).
 customElements.define('ficha-mascota', FichaMascota);
 
-// ----- Lógica de la página: contador y formulario -----
+// ----- Lógica de la página: contador, formulario y eliminación -----
 
 const contenedor = document.getElementById('fichas');
 const formulario = document.getElementById('form-registro');
@@ -137,6 +142,14 @@ formulario.addEventListener('submit', (evento) => {
   actualizarContador();
   mostrarAviso(`Listo, quedó la ficha de ${nombre}.`);
   ficha.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+
+contenedor.addEventListener('eliminar-ficha', (evento) => {
+  const ficha = evento.target;
+  const nombre = ficha.getAttribute('nombre');
+  ficha.remove();
+  actualizarContador();
+  mostrarAviso(`Se borró la ficha de ${nombre}.`);
 });
 
 actualizarContador();
